@@ -1,13 +1,17 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema(
+const todoSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    title: { type: String, required: true },
+    description: { type: String, require: true },
+    status: {
+      type: String,
+      enum: ["pending", "in-progress", "completed"],
+      require: true,
+    },
   },
   { timestamps: true }
 );
 
-const User = mongoose.model("User", userSchema);
-export default User;
+const Todo = mongoose.model("Todo", todoSchema);
+module.exports = Todo;
