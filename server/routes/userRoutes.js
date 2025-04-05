@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../models/User.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const authMiddleware = require("../middlewares/authMiddleware.js");
 
 const router = express.Router();
 
@@ -49,7 +50,7 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    
+
     if (!user) {
       return res.status(400).json({ message: "Invalide Credentials" });
     }
